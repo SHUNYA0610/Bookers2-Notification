@@ -1,0 +1,42 @@
+<%= form_with model:book,local:true do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control book_title' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :opinion %>
+    <%= f.text_area :body, class: 'form-control book_body' %>
+  </div>
+　<div class="row">
+　<p>Rate　</p>  
+  <div id="stars"></div>
+  </div>
+  <div class="form-group">
+  <label>Category</label>
+  <%= f.text_field :category,class: 'form-control book_category' %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+　<script>
+    document.addEventListener('turbolinks:load', function() {
+      let elem = document.querySelector('#stars');
+      
+      // 既存の星のアイコンを削除する
+      while (elem.firstChild) {
+  
+        elem.firstChild.remove();
+  
+      }
+      let opt = {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        scoreName: 'book[star]',
+        score: "<%= isEdit ? book.star : 0 %>"
+      };
+      raty(elem, opt);
+    });
+　</script>
